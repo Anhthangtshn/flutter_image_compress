@@ -17,14 +17,14 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  ImageProvider? provider;
+  ImageProvider provider;
 
   Future<void> compress() async {
     final img = AssetImage('img/img.jpg');
@@ -102,7 +102,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  Future<typed_data.Uint8List?> testCompressFile(File file) async {
+  Future<typed_data.Uint8List> testCompressFile(File file) async {
     print('testCompressFile');
     final result = await FlutterImageCompress.compressWithFile(
       file.absolute.path,
@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
     return result;
   }
 
-  Future<File?> testCompressAndGetFile(File file, String targetPath) async {
+  Future<File> testCompressAndGetFile(File file, String targetPath) async {
     print('testCompressAndGetFile');
     final result = await FlutterImageCompress.compressAndGetFile(
       file.absolute.path,
@@ -263,8 +263,7 @@ class _MyAppState extends State<MyApp> {
     print('start compress webp');
     final quality = 90;
     final tmpDir = (await getTemporaryDirectory()).path;
-    final target =
-        '$tmpDir/${DateTime.now().millisecondsSinceEpoch}-$quality.webp';
+    final target = '$tmpDir/${DateTime.now().millisecondsSinceEpoch}-$quality.webp';
     final srcPath = await getExampleFilePath();
     final result = await FlutterImageCompress.compressAndGetFile(
       srcPath,
@@ -408,10 +407,10 @@ Future<typed_data.Uint8List> getAssetImageUint8List(String key) async {
 }
 
 double calcScale({
-  required double srcWidth,
-  required double srcHeight,
-  required double minWidth,
-  required double minHeight,
+  double srcWidth,
+  double srcHeight,
+  double minWidth,
+  double minHeight,
 }) {
   final scaleW = srcWidth / minWidth;
   final scaleH = srcHeight / minHeight;
@@ -425,9 +424,7 @@ extension _StateExtension on State {
   /// [setState] when it's not building, then wait until next frame built.
   FutureOr<void> safeSetState(FutureOr<dynamic> Function() fn) async {
     await fn();
-    if (mounted &&
-        !context.debugDoingBuild &&
-        context.owner?.debugBuilding == false) {
+    if (mounted && !context.debugDoingBuild && context.owner?.debugBuilding == false) {
       // ignore: invalid_use_of_protected_member
       setState(() {});
     }

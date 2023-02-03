@@ -2,7 +2,7 @@ class TimeLogger {
   TimeLogger([this.tag = '']);
 
   String tag;
-  int? start;
+  int start;
 
   void startRecorder() {
     start = DateTime.now().millisecondsSinceEpoch;
@@ -13,7 +13,7 @@ class TimeLogger {
       print('The start is null, you must start recorder first.');
       return;
     }
-    final diff = DateTime.now().millisecondsSinceEpoch - start!;
+    final diff = DateTime.now().millisecondsSinceEpoch - start;
     if (tag != '') {
       print('$tag : $diff ms');
     } else {
