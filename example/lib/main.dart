@@ -84,15 +84,16 @@ class _MyAppState extends State<MyApp> {
   }
 
   void getFileImage() async {
-    final img = AssetImage('img/img.jpg');
-    print('pre compress');
-    final config = ImageConfiguration();
-    final AssetBundleImageKey key = await img.obtainKey(config);
-    final ByteData data = await key.bundle.load(key.name);
+    // final img = AssetImage('img/img.jpg');
+    // print('pre compress');
+    // final config = ImageConfiguration();
+    // final AssetBundleImageKey key = await img.obtainKey(config);
+    // final ByteData data = await key.bundle.load(key.name);
     final dir = await path_provider.getTemporaryDirectory();
-    final File file = createFile('${dir.absolute.path}/test.png');
-    file.writeAsBytesSync(data.buffer.asUint8List());
-    final targetPath = dir.absolute.path + '/temp.jpg';
+    // final File file = createFile('${dir.absolute.path}/test.png');
+    final  file = File('/data/data/com.fluttercandies.flutterimagecompressexample/test/332780038_772808627830213_7594239088124794918_n.png');
+    // file.writeAsBytesSync(data.buffer.asUint8List());
+    final targetPath = dir.absolute.path + '/fuck.jpg';
     final imgFile = await testCompressAndGetFile(file, targetPath);
     if (imgFile == null) {
       return;
@@ -124,7 +125,7 @@ class _MyAppState extends State<MyApp> {
       quality: 90,
       minWidth: 1024,
       minHeight: 1024,
-      rotate: 90,
+      rotate: 0,
     );
     print(file.lengthSync());
     print(result?.lengthSync());
